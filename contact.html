@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact | IsuliCloths</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <div class="nav-container">
+        <div class="logo">
+            <a href="index.html">
+                <img src="image/logo.jpg" alt="IsuliCloths Logo">
+            </a>
+            <h1>
+                <a href="index.html" class="active">IsuliCloths</a>
+            </h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="collection.html">Collection</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    </header>
+
+    <section class="contact">
+    <h1>Contact Us</h1>
+    <div class="contact-box">
+        <form>
+            <label>Full Name:</label>
+            <input type="text" name="name" required>
+
+            <label>Email:</label>
+            <input type="email" name="email" required>
+
+            <label>Subject:</label>
+            <input type="text" name="subject">
+
+            <label>Message:</label>
+            <textarea name="message" rows="5" placeholder="Write your message here..."></textarea>
+
+            <label>Preferred Contact Method:</label>
+            <div class="checkbox-group">
+                <label><input type="checkbox" name="contactMethod" value="email"> Email</label>
+                <label><input type="checkbox" name="contactMethod" value="call"> Call</label>
+                <label><input type="checkbox" name="contactMethod" value="text"> Text</label>
+            </div>
+
+            <label>Purpose of Inquiry:</label>
+            <select name="inquiry">
+                <option>General Inquiry</option>
+                <option>Order Status</option>
+                <option>Product Inquiry</option>
+                <option>Feedback/Suggestions</option>
+                <option>Other</option>
+            </select>
+
+            <div class="buttons">
+                <button type="reset">Reset</button>
+                <button type="submit">Submit</button>
+            </div>
+        </form>
+    </div>
+</section>
+<footer>
+  <div class="footer-container">
+    <!-- Left: Logo -->
+    <div class="footer-logo">
+      <img src="image/logo.jpg" alt="IsuliCloths Logo">
+      <p>© 2025 IsuliCloths</p>
+      <p>Stylish. Affordable. Quality.</p>
+    </div>
+
+    <!-- Center: Contact Info -->
+    <div class="footer-contact">
+      <h4>Contact Us</h4>
+      <p>Email: <a href="mailto:info@isulicloths.com">info@isulicloths.com</a></p>
+      <p>Tel: +94 71 234 5678</p>
+      <p>Address: Colombo, Sri Lanka</p>
+    </div>
+
+    <!-- Right: Payment + App Store Icons -->
+<div class="footer-extras">
+  <h4>We Accept</h4>
+  <div class="payment-icons">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/4/41/Visa_Logo.png" alt="Visa" width="50">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/0/04/Mastercard-logo.png" alt="MasterCard" width="50">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" alt="PayPal" width="50">
+  </div>
+
+      <h4>Get Our App</h4>
+      <div class="app-links">
+        <a href="#"><img src="image/google.png" alt="Google Play"></a>
+        <a href="#"><img src="image/app.png" alt="App Store"></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
