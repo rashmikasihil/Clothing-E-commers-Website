@@ -1,656 +1,986 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="icon" type="image/png" href="./image/icon.png">
-<title>IsuliCloths | Shop</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="./image/icon.png">
+    <title>IsuliCloths | Shop Collection</title>
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-<style>
+    <style>
+        /* ===== GLOBAL ===== */
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:Poppins, sans-serif;
+        }
 
-/* ===== GLOBAL ===== */
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Poppins;
-}
+        body{
+            background:#f4f6f8;
+        }
 
-body{
-background:#f4f6f8;
-}
+        /* ===== NAVBAR ===== */
+        header{
+            background:#0f172a;
+            position:sticky;
+            top:0;
+            z-index:1000;
+            box-shadow:0 5px 20px rgba(0,0,0,0.2);
+        }
 
-/* ===== NAVBAR ===== */
-header{
-background:#0f172a;
-position:sticky;
-top:0;
-z-index:1000;
-box-shadow:0 5px 20px rgba(0,0,0,0.2);
-}
+        .nav{
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            padding:15px 8%;
+        }
 
-.nav{
-display:flex;
-align-items:center;
-justify-content:space-between;
-padding:15px 8%;
-}
+        /* LOGO */
+        .logo{
+            display:flex;
+            align-items:center;
+            gap:10px;
+        }
 
-/* LOGO */
-.logo{
-display:flex;
-align-items:center;
-gap:10px;
-}
+        .logo img{
+            width:42px;
+            height:42px;
+            border-radius:50%;
+            background-color:white;
+        }
 
-.logo img{
-width:42px;
-height:42px;
-border-radius:50%;
-background-color:white;
-}
+        .logo h1{
+            color:white;
+            font-size:18px;
+        }
 
-.logo h1{
-color:white;
-font-size:18px;
-}
+        /* MENU */
+        nav ul{
+            display:flex;
+            gap:20px;
+            list-style:none;
+        }
 
-/* MENU */
-nav ul{
-display:flex;
-gap:20px;
-list-style:none;
-}
+        nav a{
+            color:white;
+            text-decoration:none;
+            font-size:14px;
+            transition:0.3s;
+            position:relative;
+            cursor: pointer;
+        }
 
-nav a{
-color:white;
-text-decoration:none;
-font-size:14px;
-transition:0.3s;
-position:relative;
-}
+        nav a:hover, nav a.active-nav{
+            color:#2563eb;
+        }
 
-nav a:hover{
-color:#2563eb;
-}
+        nav a::after{
+            content:"";
+            position:absolute;
+            bottom:-5px;
+            left:0;
+            width:0%;
+            height:2px;
+            background:#2563eb;
+            transition:0.3s;
+        }
 
-nav a::after{
-content:"";
-position:absolute;
-bottom:-5px;
-left:0;
-width:0%;
-height:2px;
-background:#2563eb;
-transition:0.3s;
-}
+        nav a:hover::after, nav a.active-nav::after{
+            width:100%;
+        }
 
-nav a:hover::after{
-width:100%;
-}
+        /* SEARCH */
+        .search{
+            display:flex;
+            align-items:center;
+            background:#1e293b;
+            padding:6px 12px;
+            border-radius:20px;
+        }
 
-/* SEARCH */
-.search{
-display:flex;
-align-items:center;
-background:#1e293b;
-padding:6px 12px;
-border-radius:20px;
-}
+        .search input{
+            background:transparent;
+            border:none;
+            outline:none;
+            color:white;
+            width:120px;
+        }
 
-.search input{
-background:transparent;
-border:none;
-outline:none;
-color:white;
-width:120px;
-}
+        .search input::placeholder{
+            color:#cbd5e1;
+        }
 
-.search input::placeholder{
-color:#cbd5e1;
-}
+        /* ICONS */
+        .icons{
+            display:flex;
+            gap:15px;
+        }
 
-/* ICONS */
-.icons{
-display:flex;
-gap:15px;
-}
+        .icon{
+            position:relative;
+            color:white;
+            font-size:18px;
+            transition:0.3s;
+        }
 
-.icon{
-position:relative;
-color:white;
-font-size:18px;
-transition:0.3s;
-}
+        .icon:hover{
+            color:#2563eb;
+            transform:scale(1.1);
+        }
 
-.icon:hover{
-color:#2563eb;
-transform:scale(1.1);
-}
+        /* BADGE */
+        .badges{
+            position:absolute;
+            top:-8px;
+            right:-10px;
+            background:red;
+            color:white;
+            font-size:10px;
+            padding:2px 5px;
+            border-radius:50%;
+        }
 
-/* BADGE */
-.badges{
-position:absolute;
-top:-8px;
-right:-10px;
-background:red;
-color:white;
-font-size:10px;
-padding:2px 5px;
-border-radius:50%;
-}
+        /* ===== HERO ===== */
+        .shop-hero{
+            height:40vh;
+            background:linear-gradient(to right, rgba(15,23,42,0.9), rgba(37,99,235,0.6)),
+            url("image/shop-banner.jpg"); 
+            background-size:cover;
+            background-position: center;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            color:white;
+            text-align:center;
+            transition: 0.5s ease-in-out;
+        }
 
-/* ===== HERO ===== */
-.shop-hero{
-height:35vh;
-background:linear-gradient(to right, rgba(15,23,42,0.9), rgba(37,99,235,0.6)),
-url("image/hero-banner.jpg");
-background-size:cover;
-display:flex;
-align-items:center;
-justify-content:center;
-color:white;
-text-align:center;
-}
+        .shop-hero h1{
+            font-size:45px;
+            letter-spacing: 2px;
+        }
 
-.shop-hero h1{
-font-size:40px;
-}
+        .shop-hero p{
+            color:#cbd5e1;
+            font-size: 16px;
+            margin-top: 5px;
+        }
 
-.shop-hero p{
-color:#cbd5e1;
-}
+        /* ===== FILTER TABS ===== */
+        .filter-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 40px 0 10px;
+        }
 
-/* ===== FILTER BAR ===== */
-.filter-bar{
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:20px 8%;
-flex-wrap:wrap;
-gap:15px;
-}
+        .filter-btn {
+            background: white;
+            color: #0f172a;
+            border: 2px solid #e2e8f0;
+            padding: 10px 25px;
+            font-size: 15px;
+            font-weight: 500;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
 
-.search-box{
-display:flex;
-align-items:center;
-background:white;
-padding:10px 15px;
-border-radius:25px;
-box-shadow:0 5px 15px rgba(0,0,0,0.1);
-}
+        .filter-btn:hover, .filter-btn.active-filter {
+            background: #2563eb;
+            color: white;
+            border-color: #2563eb;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+        }
 
-.search-box input{
-border:none;
-outline:none;
-width:200px;
-}
+        /* ===== CATEGORY SECTION ===== */
+        .section-title {
+            text-align: center;
+            margin: 40px 0 20px;
+            font-size: 28px;
+            color: #0f172a;
+            position: relative;
+            text-transform: uppercase;
+        }
 
-/* ===== PRODUCTS ===== */
-.products{
-padding:20px 8% 60px;
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-gap:25px;
-}
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background: #2563eb;
+            margin: 10px auto 0;
+        }
 
-/* CARD */
-.card{
-background:white;
-border-radius:12px;
-overflow:hidden;
-box-shadow:0 10px 25px rgba(0,0,0,0.08);
-transition:0.4s;
-position:relative;
-}
+        /* ===== PRODUCTS ===== */
+        .products{
+            padding:20px 8% 40px;
+            display:grid;
+            grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+            gap:25px;
+        }
 
-.card:hover{
-transform:translateY(-10px);
-}
+        /* CARD */
+        .card{
+            background:white;
+            border-radius:12px;
+            overflow:hidden;
+            box-shadow:0 10px 25px rgba(0,0,0,0.08);
+            transition:0.4s;
+            position:relative;
+        }
 
-/* IMAGE */
-.card img{
-width:100%;
-height:270px;
-object-fit:cover;
-transition:0.4s;
-}
+        .card:hover{
+            transform:translateY(-10px);
+        }
 
-.card:hover img{
-transform:scale(1.05);
-}
+        /* IMAGE */
+        .card img{
+            width:100%;
+            height:320px;
+            object-fit:cover;
+            transition:0.4s;
+        }
 
-/* BADGE */
-.badge{
-position:absolute;
-top:10px;
-left:10px;
-background:#2563eb;
-color:white;
-font-size:12px;
-padding:4px 10px;
-border-radius:5px;
-}
+        .card:hover img{
+            transform:scale(1.05);
+        }
 
-/* ICON BAR */
-.icon-bar{
-position:absolute;
-top:10px;
-right:10px;
-display:flex;
-flex-direction:column;
-gap:8px;
-opacity:0;
-transition:0.3s;
-}
+        /* BADGE */
+        .badge{
+            position:absolute;
+            top:10px;
+            left:10px;
+            background:#2563eb;
+            color:white;
+            font-size:12px;
+            padding:4px 10px;
+            border-radius:5px;
+            z-index: 10;
+        }
 
-.card:hover .icon-bar{
-opacity:1;
-}
+        .badge.sale {
+            background: #ef4444;
+        }
 
-.icon-bar i{
-background:white;
-padding:8px;
-border-radius:50%;
-box-shadow:0 5px 10px rgba(0,0,0,0.1);
-cursor:pointer;
-transition:0.3s;
-}
+        /* ICON BAR */
+        .icon-bar{
+            position:absolute;
+            top:10px;
+            right:10px;
+            display:flex;
+            flex-direction:column;
+            gap:8px;
+            opacity:0;
+            transition:0.3s;
+            z-index: 10;
+        }
 
-.icon-bar i:hover{
-background:#2563eb;
-color:white;
-}
+        .card:hover .icon-bar{
+            opacity:1;
+        }
 
-/* CONTENT */
-.card-content{
-padding:15px;
-text-align:center;
-}
+        .icon-bar i{
+            background:white;
+            padding:8px;
+            border-radius:50%;
+            box-shadow:0 5px 10px rgba(0,0,0,0.1);
+            cursor:pointer;
+            transition:0.3s;
+            color: #0f172a;
+        }
 
-.card h3{
-margin:5px 0;
-}
+        .icon-bar i:hover{
+            background:#2563eb;
+            color:white;
+        }
 
-.price{
-color:#2563eb;
-font-weight:600;
-margin:5px 0;
-}
+        /* CONTENT */
+        .card-content{
+            padding:15px;
+            text-align:center;
+        }
 
-/* BUTTON */
-.btn{
-background:#2563eb;
-color:white;
-border:none;
-padding:10px 18px;
-border-radius:6px;
-cursor:pointer;
-transition:0.3s;
-}
+        .card h3{
+            margin:5px 0;
+            font-size: 16px;
+            color: #334155;
+        }
 
-.btn:hover{
-background:#1d4ed8;
-transform:scale(1.05);
-}
+        .price{
+            color:#2563eb;
+            font-weight:600;
+            margin:5px 0;
+            font-size: 16px;
+        }
 
-/* ===== FOOTER ===== */
-footer{
-    background:#0f172a;
-    color:white;
-    margin-top:60px;
-}
+        .old-price {
+            text-decoration: line-through;
+            color: #94a3b8;
+            font-size: 13px;
+            margin-right: 5px;
+        }
 
-.logos img {
-    width: 70px;
-    height: 70px;
-    border-radius: 50%;
-    background-color: white;
-    margin-left: 20px;
-    margin-bottom: 10px;
-}
+        /* BUTTON */
+        .btn{
+            background:#2563eb;
+            color:white;
+            border:none;
+            padding:10px 18px;
+            border-radius:6px;
+            cursor:pointer;
+            transition:0.3s;
+            width: 100%;
+            margin-top: 10px;
+            font-weight: 500;
+        }
 
-.footer-container{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-    gap:30px;
-    padding:60px 8%;
-}
+        .btn:hover{
+            background:#1d4ed8;
+        }
 
-.footer-box p,
-.footer-box a{
-    color:#94a3b8;
-    font-size:14px;
-    text-decoration:none;
-    display:block;
-    margin-bottom:8px;
-}
+        /* ===== PROMO BANNER ===== */
+        .promo-banner {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: white;
+            margin: 40px 8%;
+            padding: 50px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 20px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
 
-.footer-box a:hover{
-    color:#2563eb;
-    padding-left:5px;
-}
+        .promo-text h2 {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
 
-.social i{
-    font-size:18px;
-    margin-right:10px;
-    cursor:pointer;
-    transition:0.3s;
-}
+        .promo-text p {
+            color: #cbd5e1;
+        }
 
-.social i:hover{
-    color:#2563eb;
-    transform:scale(1.2);
-}
+        .promo-btn {
+            background: #2563eb;
+            color: white;
+            text-decoration: none;
+            padding: 12px 30px;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: 0.3s;
+        }
 
-.payment img{
-    width:45px;
-    margin-right:8px;
-    background:white;
-    padding:3px;
-    border-radius:5px;
-}
+        .promo-btn:hover {
+            background: white;
+            color: #2563eb;
+            transform: scale(1.05);
+        }
 
-.subscribe{
-    display:flex;
-    margin-top:10px;
-}
+        /* ===== FOOTER ===== */
+        footer{
+            background:#0f172a;
+            color:white;
+            margin-top:60px;
+        }
 
-.subscribe input{
-    flex:1;
-    padding:10px;
-    border:none;
-    outline:none;
-}
+        .logos img {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background-color: white;
+            margin-left: 20px;
+            margin-bottom: 10px;
+        }
 
-.subscribe button{
-    background:#2563eb;
-    color:white;
-    border:none;
-    padding:10px 15px;
-    cursor:pointer;
-}
+        .footer-container{
+            display:grid;
+            grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+            gap:30px;
+            padding:60px 8%;
+        }
 
-.bottom{
-    text-align:center;
-    padding:15px;
-    border-top:1px solid #1e293b;
-    color:#94a3b8;
-    font-size:13px;
-}
+        .footer-box p,
+        .footer-box a{
+            color:#94a3b8;
+            font-size:14px;
+            text-decoration:none;
+            display:block;
+            margin-bottom:8px;
+        }
 
-</style>
+        .footer-box a:hover{
+            color:#2563eb;
+            padding-left:5px;
+        }
+
+        .social i{
+            font-size:18px;
+            margin-right:10px;
+            cursor:pointer;
+            transition:0.3s;
+        }
+
+        .social i:hover{
+            color:#2563eb;
+            transform:scale(1.2);
+        }
+
+        .payment img{
+            width:45px;
+            margin-right:8px;
+            background:white;
+            padding:3px;
+            border-radius:5px;
+        }
+
+        .subscribe{
+            display:flex;
+            margin-top:10px;
+        }
+
+        .subscribe input{
+            flex:1;
+            padding:10px;
+            border:none;
+            outline:none;
+        }
+
+        .subscribe button{
+            background:#2563eb;
+            color:white;
+            border:none;
+            padding:10px 15px;
+            cursor:pointer;
+        }
+
+        .bottom{
+            text-align:center;
+            padding:15px;
+            border-top:1px solid #1e293b;
+            color:#94a3b8;
+            font-size:13px;
+        }
+
+    </style>
 </head>
 
 <body>
 
 <!-- NAVBAR -->
 <header>
-<div class="nav">
+    <div class="nav">
+        <div class="logo">
+            <img src="image/icon.png" alt="Logo">
+            <h1>IsuliCloths</h1>
+        </div>
 
-    <div class="logo">
-        <img src="image/icon.png">
-        <h1>IsuliCloths</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a onclick="filterCollection('all')" id="nav-all" class="active-nav">Shop</a></li>
+                <!-- <li><a onclick="filterCollection('men')" id="nav-men">Men</a></li>
+                <li><a onclick="filterCollection('women')" id="nav-women">Women</a></li> -->
+                <li><a href="./about.html">About Us</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+
+        <div class="search">
+            <input type="text" placeholder="Search">
+        </div>
+
+        <div class="icons">
+            <a class="icon" href="#"><i class="fas fa-user"></i></a>
+            <a class="icon" href="#"><i class="fas fa-heart"></i><span class="badges">2</span></a>
+            <a class="icon" href="#"><i class="fas fa-cart-shopping"></i><span class="badges">3</span></a>
+        </div>
     </div>
-
-    <nav>
-        <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="shop.html">Shop</a></li>
-            <li><a href="men.html">Men</a></li>
-            <li><a href="women.html">Women</a></li>
-            <li><a href="contact.html">Contact</a></li>
-        </ul>
-    </nav>
-
-    <div class="search">
-        <input type="text" placeholder="Search">
-    </div>
-
-    <div class="icons">
-
-        <a class="icon" href="#"><i class="fas fa-user"></i></a>
-
-        <a class="icon" href="#">
-            <i class="fas fa-heart"></i>
-            <span class="badges">2</span>
-        </a>
-
-        <a class="icon" href="#">
-            <i class="fas fa-cart-shopping"></i>
-            <span class="badges">3</span>
-        </a>
-
-    </div>
-
-</div>
 </header>
 
 <!-- HERO -->
-<div class="shop-hero">
-<div>
-<h1>Shop Our Collection</h1>
-<p>Premium fashion made for you</p>
-</div>
-</div>
-
-<!-- FILTER -->
-<div class="filter-bar">
-
-<div class="search-box">
-<i class="fas fa-search"></i>
-<input type="text" placeholder="Search products...">
+<div class="shop-hero" id="hero-bg">
+    <div>
+        <h1 id="hero-title">Our Collection</h1>
+        <p id="hero-desc">Discover premium trends and upgrade your wardrobe with IsuliCloths</p>
+    </div>
 </div>
 
-<div class="sort">
-<select>
-<option>Sort by Latest</option>
-<option>Price Low to High</option>
-<option>Price High to Low</option>
-</select>
+<!-- FILTER BUTTONS -->
+<div class="filter-container">
+    <button class="filter-btn active-filter" onclick="filterCollection('all')" id="btn-all">All Products</button>
+    <button class="filter-btn" onclick="filterCollection('men')" id="btn-men">Men's Fashion</button>
+    <button class="filter-btn" onclick="filterCollection('women')" id="btn-women">Women's Fashion</button>
 </div>
 
+
+<!-- ==================== MEN'S COLLECTION SECTION ==================== -->
+<div id="men-section">
+    <!-- SECTION 1: CLOTHING -->
+    <h2 class="section-title">Men's Clothing</h2>
+    <div class="products">
+        <!-- Item 1 -->
+        <div class="card">
+            <span class="badge">NEW</span>
+            <div class="icon-bar">
+                <i class="fas fa-heart"></i><i class="fas fa-eye"></i><i class="fas fa-cart-shopping"></i>
+            </div>
+            <img src="https://tse1.mm.bing.net/th/id/OIP.3IpyJTwluIhYNW_kRYJ-qAHaHa?rs=1&pid=ImgDetMain&o=7&rm=3">
+            <div class="card-content">
+                <h3>Premium Casual Shirt</h3>
+                <p class="price">Rs 3,500</p>
+                <button class="btn">Add to Cart</button>
+            </div>
+        </div>
+        <!-- Item 2 -->
+        <div class="card">
+            <span class="badge sale">SALE</span>
+            <div class="icon-bar">
+                <i class="fas fa-heart"></i><i class="fas fa-eye"></i><i class="fas fa-cart-shopping"></i>
+            </div>
+            <img src="https://tse3.mm.bing.net/th/id/OIP.EO4JIv9gxLTdttdSAPnzvAHaIl?rs=1&pid=ImgDetMain&o=7&rm=3">
+            <div class="card-content">
+                <h3>Slim Fit T-Shirt</h3>
+                <p class="price"><span class="old-price">Rs 2,800</span>Rs 2,200</p>
+                <button class="btn">Add to Cart</button>
+            </div>
+        </div>
+        <!-- Item 3 -->
+        <div class="card">
+            <div class="icon-bar">
+                <i class="fas fa-heart"></i><i class="fas fa-eye"></i><i class="fas fa-cart-shopping"></i>
+            </div>
+            <img src="https://assets.myntassets.com/h_200,w_200,c_fill,g_auto/h_1440,q_100,w_1080/v1/assets/images/31661062/2024/12/7/443047bc-ccd5-4536-8daa-ca64fb8091491733549362031-DENIMLOOK-Men-Relaxed-Fit-Stretchable-Jeans-8981733549361448-1.jpg">
+            <div class="card-content">
+                <h3>Denim Jeans</h3>
+                <p class="price">Rs 4,800</p>
+                <button class="btn">Add to Cart</button>
+            </div>
+        </div>
+        <!-- Item 4 -->
+        <div class="card">
+            <div class="icon-bar">
+                <i class="fas fa-heart"></i><i class="fas fa-eye"></i><i class="fas fa-cart-shopping"></i>
+            </div>
+            <img src="https://tse1.mm.bing.net/th/id/OIP.iKNDgYW4-Fvk7kzuwuFdeQHaIX?rs=1&pid=ImgDetMain&o=7&rm=3">
+            <div class="card-content">
+                <h3>Stylish Bomber Jacket</h3>
+                <p class="price">Rs 6,500</p>
+                <button class="btn">Add to Cart</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- PROMO BANNER (MEN) -->
+    <div class="promo-banner">
+        <div class="promo-text">
+            <h2>Weekend Special Offer!</h2>
+            <p>Get up to 30% off on all Men's Accessories and Footwear. Valid only for this week.</p>
+        </div>
+        <a href="#" class="promo-btn">Shop Now</a>
+    </div>
+
+    <!-- SECTION 2: FOOTWEAR -->
+    <h2 class="section-title">Men's Shoes</h2>
+    <div class="products">
+        <!-- Item 5 -->
+        <div class="card">
+            <div class="icon-bar">
+                <i class="fas fa-heart"></i><i class="fas fa-eye"></i><i class="fas fa-cart-shopping"></i>
+            </div>
+            <img src="https://tse2.mm.bing.net/th/id/OIP.lbeeWxy7MWsXgCtaMirPkgHaHa?rs=1&pid=ImgDetMain&o=7&rm=3">
+            <div class="card-content">
+                <h3>Sporty Sneakers</h3>
+                <p class="price">Rs 5,200</p>
+                <button class="btn">Add to Cart</button>
+            </div>
+        </div>
+        <!-- Item 6 -->
+        <div class="card">
+            <span class="badge">TRENDING</span>
+            <div class="icon-bar">
+                <i class="fas fa-heart"></i><i class="fas fa-eye"></i><i class="fas fa-cart-shopping"></i>
+            </div>
+            <img src="https://tse4.mm.bing.net/th/id/OIP.J_2TbyXT6ZmbvEZl-QbhIgHaJT?rs=1&pid=ImgDetMain&o=7&rm=3">
+            <div class="card-content">
+                <h3>Classic Leather Shoes</h3>
+                <p class="price">Rs 8,900</p>
+                <button class="btn">Add to Cart</button>
+            </div>
+        </div>
+        <!-- Item 7 -->
+        <div class="card">
+            <div class="icon-bar">
+                <i class="fas fa-heart"></i><i class="fas fa-eye"></i><i class="fas fa-cart-shopping"></i>
+            </div>
+            <img src="https://image.sportsmansguide.com/adimgs/l/1/170749_ts.jpg">
+            <div class="card-content">
+                <h3>Casual Loafers</h3>
+                <p class="price">Rs 4,500</p>
+                <button class="btn">Add to Cart</button>
+            </div>
+        </div>
+        <!-- Item 8 -->
+        <div class="card">
+            <div class="icon-bar">
+                <i class="fas fa-heart"></i><i class="fas fa-eye"></i><i class="fas fa-cart-shopping"></i>
+            </div>
+            <img src="https://www.suitsexpert.com/wp-content/uploads/different-ways-to-wear-chelsea-boots-for-men-cover.jpg">
+            <div class="card-content">
+                <h3>Chelsea Boots</h3>
+                <p class="price">Rs 7,800</p>
+                <button class="btn">Add to Cart</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECTION 3: ACCESSORIES -->
+    <h2 class="section-title">Men's Accessories & Shorts</h2>
+    <div class="products">
+        <!-- Item 9 -->
+        <div class="card">
+            <div class="icon-bar">
+                <i class="fas fa-heart"></i><i class="fas fa-eye"></i><i class="fas fa-cart-shopping"></i>
+            </div>
+            <img src="https://tse4.mm.bing.net/th/id/OIP.pHXhkfgh-mHzCCZCrspPZAHaHa?rs=1&pid=ImgDetMain&o=7&rm=3">
+            <div class="card-content">
+                <h3>Luxury Men's Watch</h3>
+                <p class="price">Rs 12,500</p>
+                <button class="btn">Add to Cart</button>
+            </div>
+        </div>
+        <!-- Item 10 -->
+        <div class="card">
+            <div class="icon-bar">
+                <i class="fas fa-heart"></i><i class="fas fa-eye"></i><i class="fas fa-cart-shopping"></i>
+            </div>
+            <img src="https://tse3.mm.bing.net/th/id/OIP.e5PYLOWre1ZkdxVL39XMpQHaJo?rs=1&pid=ImgDetMain&o=7&rm=3">
+            <div class="card-content">
+                <h3>Casual Chino Shorts</h3>
+                <p class="price">Rs 2,400</p>
+                <button class="btn">Add to Cart</button>
+            </div>
+        </div>
+        <!-- Item 11 -->
+        <div class="card">
+            <span class="badge sale">HOT</span>
+            <div class="icon-bar">
+                <i class="fas fa-heart"></i><i class="fas fa-eye"></i><i class="fas fa-cart-shopping"></i>
+            </div>
+            <img src="https://aferelle.com/cdn/shop/products/ezgif.com-gif-maker_900x.jpg">
+            <div class="card-content">
+                <h3>Polarized Sunglasses</h3>
+                <p class="price">Rs 3,200</p>
+                <button class="btn">Add to Cart</button>
+            </div>
+        </div>
+        <!-- Item 12 -->
+        <div class="card">
+            <div class="icon-bar">
+                <i class="fas fa-heart"></i><i class="fas fa-eye"></i><i class="fas fa-cart-shopping"></i>
+            </div>
+            <img src="https://i.etsystatic.com/24490464/r/il/b18e3f/3369332050/il_1140xN.3369332050_2m0p.jpg">
+            <div class="card-content">
+                <h3>Leather Slim Wallet</h3>
+                <p class="price">Rs 1,950</p>
+                <button class="btn">Add to Cart</button>
+            </div>
+        </div>
+    </div>
 </div>
 
-<!-- PRODUCTS -->
-<div class="products">
 
-<div class="card">
-<span class="badge">NEW</span>
+<!-- ==================== WOMEN'S COLLECTION SECTION ==================== -->
+<div id="women-section">
+    <!-- SECTION 1: CLOTHING -->
+    <h2 class="section-title">Women's Clothing</h2>
+    <div class="products">
+        <!-- Item 1 -->
+        <div class="card">
+            <span class="badge">NEW</span>
+            <div class="icon-bar">
+                <i class="fas fa-heart"></i><i class="fas fa-eye"></i><i class="fas fa-cart-shopping"></i>
+            </div>
+            <img src="image/women-dress.jpg">
+            <div class="card-content">
+                <h3>Elegant Floral Dress</h3>
+                <p class="price">Rs 5,800</p>
+                <button class="btn">Add to Cart</button>
+            </div>
+        </div>
+        <!-- Item 2 -->
+        <div class="card">
+            <span class="badge sale">SALE</span>
+            <div class="icon-bar">
+                <i class="fas fa-heart"></i><i class="fas fa-eye"></i><i class="fas fa-cart-shopping"></i>
+            </div>
+            <img src="image/women-top.jpg">
+            <div class="card-content">
+                <h3>Casual Linen Top</h3>
+                <p class="price"><span class="old-price">Rs 3,200</span>Rs 2,500</p>
+                <button class="btn">Add to Cart</button>
+            </div>
+        </div>
+        <!-- Item 3 -->
+        <div class="card">
+            <div class="icon-bar">
+                <i class="fas fa-heart"></i><i class="fas fa-eye"></i><i class="fas fa-cart-shopping"></i>
+            </div>
+            <img src="image/women-frock.jpg">
+            <div class="card-content">
+                <h3>Modern Summer Frock</h3>
+                <p class="price">Rs 4,200</p>
+                <button class="btn">Add to Cart</button>
+            </div>
+        </div>
+        <!-- Item 4 -->
+        <div class="card">
+            <div class="icon-bar">
+                <i class="fas fa-heart"></i><i class="fas fa-eye"></i><i class="fas fa-cart-shopping"></i>
+            </div>
+            <img src="image/women-jeans.jpg">
+            <div class="card-content">
+                <h3>High Waist Denim Jeans</h3>
+                <p class="price">Rs 4,900</p>
+                <button class="btn">Add to Cart</button>
+            </div>
+        </div>
+    </div>
 
-<div class="icon-bar">
-<i class="fas fa-heart"></i>
-<i class="fas fa-eye"></i>
-<i class="fas fa-cart-shopping"></i>
+    <!-- PROMO BANNER (WOMEN) -->
+    <div class="promo-banner">
+        <div class="promo-text">
+            <h2>Exclusive Ladies Offer!</h2>
+            <p>Get an extra 15% off on your first order from the Women's Accessories collection.</p>
+        </div>
+        <a href="#" class="promo-btn">Claim Offer</a>
+    </div>
+
+    <!-- SECTION 2: FOOTWEAR -->
+    <h2 class="section-title">Women's Footwear</h2>
+    <div class="products">
+        <!-- Item 5 -->
+        <div class="card">
+            <div class="icon-bar">
+                <i class="fas fa-heart"></i><i class="fas fa-eye"></i><i class="fas fa-cart-shopping"></i>
+            </div>
+            <img src="image/women-heels.jpg">
+            <div class="card-content">
+                <h3>Classic High Heels</h3>
+                <p class="price">Rs 6,500</p>
+                <button class="btn">Add to Cart</button>
+            </div>
+        </div>
+        <!-- Item 6 -->
+        <div class="card">
+            <span class="badge">TRENDING</span>
+            <div class="icon-bar">
+                <i class="fas fa-heart"></i><i class="fas fa-eye"></i><i class="fas fa-cart-shopping"></i>
+            </div>
+            <img src="image/women-sneakers.jpg">
+            <div class="card-content">
+                <h3>Casual White Sneakers</h3>
+                <p class="price">Rs 4,800</p>
+                <button class="btn">Add to Cart</button>
+            </div>
+        </div>
+        <!-- Item 7 -->
+        <div class="card">
+            <div class="icon-bar">
+                <i class="fas fa-heart"></i><i class="fas fa-eye"></i><i class="fas fa-cart-shopping"></i>
+            </div>
+            <img src="image/women-flats.jpg">
+            <div class="card-content">
+                <h3>Comfortable Flat Sandals</h3>
+                <p class="price">Rs 2,900</p>
+                <button class="btn">Add to Cart</button>
+            </div>
+        </div>
+        <!-- Item 8 -->
+        <div class="card">
+            <div class="icon-bar">
+                <i class="fas fa-heart"></i><i class="fas fa-eye"></i><i class="fas fa-cart-shopping"></i>
+            </div>
+            <img src="image/women-boots.jpg">
+            <div class="card-content">
+                <h3>Ankle Leather Boots</h3>
+                <p class="price">Rs 7,900</p>
+                <button class="btn">Add to Cart</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECTION 3: ACCESSORIES -->
+    <h2 class="section-title">Bags & Accessories</h2>
+    <div class="products">
+        <!-- Item 9 -->
+        <div class="card">
+            <span class="badge">HOT</span>
+            <div class="icon-bar">
+                <i class="fas fa-heart"></i><i class="fas fa-eye"></i><i class="fas fa-cart-shopping"></i>
+            </div>
+            <img src="image/women-handbag.jpg">
+            <div class="card-content">
+                <h3>Luxury Leather Handbag</h3>
+                <p class="price">Rs 8,500</p>
+                <button class="btn">Add to Cart</button>
+            </div>
+        </div>
+        <!-- Item 10 -->
+        <div class="card">
+            <div class="icon-bar">
+                <i class="fas fa-heart"></i><i class="fas fa-eye"></i><i class="fas fa-cart-shopping"></i>
+            </div>
+            <img src="image/women-sunglasses.jpg">
+            <div class="card-content">
+                <h3>Oversized Sunglasses</h3>
+                <p class="price">Rs 3,100</p>
+                <button class="btn">Add to Cart</button>
+            </div>
+        </div>
+        <!-- Item 11 -->
+        <div class="card">
+            <div class="icon-bar">
+                <i class="fas fa-heart"></i><i class="fas fa-eye"></i><i class="fas fa-cart-shopping"></i>
+            </div>
+            <img src="image/women-watch.jpg">
+            <div class="card-content">
+                <h3>Rose Gold Women's Watch</h3>
+                <p class="price">Rs 9,800</p>
+                <button class="btn">Add to Cart</button>
+            </div>
+        </div>
+        <!-- Item 12 -->
+        <div class="card">
+            <span class="badge sale">SALE</span>
+            <div class="icon-bar">
+                <i class="fas fa-heart"></i><i class="fas fa-eye"></i><i class="fas fa-cart-shopping"></i>
+            </div>
+            <img src="image/women-jewellery.jpg">
+            <div class="card-content">
+                <h3>Minimalist Jewelry Set</h3>
+                <p class="price"><span class="old-price">Rs 3,500</span>Rs 2,800</p>
+                <button class="btn">Add to Cart</button>
+            </div>
+        </div>
+    </div>
 </div>
 
-<img src="image/t-shirt.jpg">
-
-<div class="card-content">
-<h3>T-Shirt</h3>
-<p class="price">Rs 2,500</p>
-<button class="btn">Add to Cart</button>
-</div>
-</div>
-
-<div class="card">
-<span class="badge">SALE</span>
-
-<div class="icon-bar">
-<i class="fas fa-heart"></i>
-<i class="fas fa-eye"></i>
-<i class="fas fa-cart-shopping"></i>
-</div>
-
-<img src="image/dress.webp">
-
-<div class="card-content">
-<h3>Dress</h3>
-<p class="price">Rs 6,200</p>
-<button class="btn">Add to Cart</button>
-</div>
-</div>
-
-<div class="card">
-
-<div class="icon-bar">
-<i class="fas fa-heart"></i>
-<i class="fas fa-eye"></i>
-<i class="fas fa-cart-shopping"></i>
-</div>
-
-<img src="image/jeans.jpg">
-
-<div class="card-content">
-<h3>Jeans</h3>
-<p class="price">Rs 4,800</p>
-<button class="btn">Add to Cart</button>
-</div>
-</div>
-
-<div class="card">
-
-<div class="icon-bar">
-<i class="fas fa-heart"></i>
-<i class="fas fa-eye"></i>
-<i class="fas fa-cart-shopping"></i>
-</div>
-
-<img src="image/jacket.webp">
-
-<div class="card-content">
-<h3>Jacket</h3>
-<p class="price">Rs 5,500</p>
-<button class="btn">Add to Cart</button>
-</div>
-</div>
-
-<div class="card">
-
-<div class="icon-bar">
-<i class="fas fa-heart"></i>
-<i class="fas fa-eye"></i>
-<i class="fas fa-cart-shopping"></i>
-</div>
-
-<img src="image/short.jpg">
-
-<div class="card-content">
-<h3>Shotes</h3>
-<p class="price">Rs 2,700</p>
-<button class="btn">Add to Cart</button>
-</div>
-</div>
-
-<div class="card">
-
-<div class="icon-bar">
-<i class="fas fa-heart"></i>
-<i class="fas fa-eye"></i>
-<i class="fas fa-cart-shopping"></i>
-</div>
-
-<img src="image/frock.jpg">
-
-<div class="card-content">
-<h3>Frock</h3>
-<p class="price">Rs 1,500</p>
-<button class="btn">Add to Cart</button>
-</div>
-</div>
-
-<div class="card">
-
-<div class="icon-bar">
-<i class="fas fa-heart"></i>
-<i class="fas fa-eye"></i>
-<i class="fas fa-cart-shopping"></i>
-</div>
-
-<img src="image/shoes.jpg">
-
-<div class="card-content">
-<h3>Shoes</h3>
-<p class="price">Rs 3,600</p>
-<button class="btn">Add to Cart</button>
-</div>
-</div>
-
-<div class="card">
-
-<div class="icon-bar">
-<i class="fas fa-heart"></i>
-<i class="fas fa-eye"></i>
-<i class="fas fa-cart-shopping"></i>
-</div>
-
-<img src="image/shirt.webp">
-
-<div class="card-content">
-<h3>Shirt</h3>
-<p class="price">Rs 2,800</p>
-<button class="btn">Add to Cart</button>
-</div>
-</div>
-
-</div>
 
 <!-- FOOTER -->
 <footer>
-
-<div class="footer-container">
-
-    <div class="footer-box">
-        <div class="logos">
-            <img src="image/icon.png">
+    <div class="footer-container">
+        <div class="footer-box">
+            <div class="logos"><img src="image/icon.png" alt="Logo"></div>
+            <h3>IsuliCloths</h3>
+            <p>Premium fashion store in Sri Lanka</p>
+            <div class="social">
+                <i class="fab fa-facebook"></i>
+                <i class="fab fa-instagram"></i>
+                <i class="fab fa-tiktok"></i>
+            </div>
         </div>
-        <h3>IsuliCloths</h3>
-        <p>Premium fashion store in Sri Lanka</p>
 
-        <div class="social">
-            <i class="fab fa-facebook"></i>
-            <i class="fab fa-instagram"></i>
-            <i class="fab fa-tiktok"></i>
+        <div class="footer-box">
+            <h3>Quick Links</h3>
+            <a href="./index.html">Home</a>
+            <a onclick="filterCollection('all')">Shop</a>
+            <a href="./contact.html">Contact</a>
+            <a href="./about.html">About Us</a>
         </div>
-    </div>
 
-    <div class="footer-box">
-        <h3>Quick Links</h3>
-        <a href="./index.html">Home</a>
-        <a href="./shop.html">Shop</a>
-        <a href="./contact.html">Contact</a>
-        <a href="./about.html">About Us</a>
-    </div>
-
-    <div class="footer-box">
-        <h3>Contact</h3>
-        <p>info@isulicloths.com</p>
-        <p>+94 71 234 5678</p>
-
-        <div class="payment">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/4/41/Visa_Logo.png">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/0/04/Mastercard-logo.png">
+        <div class="footer-box">
+            <h3>Contact</h3>
+            <p>info@isulicloths.com</p>
+            <p>+94 71 234 5678</p>
+            <div class="payment">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/4/41/Visa_Logo.png">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/0/04/Mastercard-logo.png">
+            </div>
         </div>
-    </div>
 
-    <div class="footer-box">
-        <h3>Newsletter</h3>
-        <div class="subscribe">
-            <input type="email" placeholder="Email">
-            <button>Go</button>
+        <div class="footer-box">
+            <h3>Newsletter</h3>
+            <div class="subscribe">
+                <input type="email" placeholder="Email">
+                <button>Go</button>
+            </div>
         </div>
     </div>
-
-</div>
-
-<div class="bottom">
-    © 2026 IsuliCloths | All Rights Reserved
-</div>
-
+    <div class="bottom">
+        © 2026 IsuliCloths | All Rights Reserved
+    </div>
 </footer>
+
+<!-- JAVASCRIPT FOR DYNAMIC TAB FILTERING -->
+<script>
+function filterCollection(category) {
+    const menSection = document.getElementById('men-section');
+    const womenSection = document.getElementById('women-section');
+    
+    const heroBg = document.getElementById('hero-bg');
+    const heroTitle = document.getElementById('hero-title');
+    const heroDesc = document.getElementById('hero-desc');
+
+    // Remove active status from all nav items and buttons
+    document.querySelectorAll('nav ul li a').forEach(el => el.classList.remove('active-nav'));
+    document.querySelectorAll('.filter-btn').forEach(el => el.classList.remove('active-filter'));
+
+    if (category === 'men') {
+        // Show Men, Hide Women
+        menSection.style.display = 'block';
+        womenSection.style.display = 'none';
+
+        // Update Hero Section
+        heroBg.style.background = "linear-gradient(to right, rgba(15,23,42,0.85), rgba(37,99,235,0.5)), url('image/men-hero-banner.jpg')";
+        heroBg.style.backgroundSize = "cover";
+        heroBg.style.backgroundPosition = "top center";
+        heroTitle.innerText = "Men's Collection";
+        heroDesc.innerText = "Upgrade your wardrobe with premium gent's fashion";
+
+        // Set Active states
+        document.getElementById('nav-men').classList.add('active-nav');
+        document.getElementById('btn-men').classList.add('active-filter');
+
+    } else if (category === 'women') {
+        // Show Women, Hide Men
+        menSection.style.display = 'none';
+        womenSection.style.display = 'block';
+
+        // Update Hero Section
+        heroBg.style.background = "linear-gradient(to right, rgba(15,23,42,0.85), rgba(37,99,235,0.5)), url('image/women-hero-banner.jpg')";
+        heroBg.style.backgroundSize = "cover";
+        heroBg.style.backgroundPosition = "center";
+        heroTitle.innerText = "Women's Collection";
+        heroDesc.innerText = "Discover the latest trends in women's premium fashion";
+
+        // Set Active states
+        document.getElementById('nav-women').classList.add('active-nav');
+        document.getElementById('btn-women').classList.add('active-filter');
+
+    } else {
+        // Show All
+        menSection.style.display = 'block';
+        womenSection.style.display = 'block';
+
+        // Reset Hero Section
+        heroBg.style.background = "linear-gradient(to right, rgba(15,23,42,0.9), rgba(37,99,235,0.6)), url('image/shop-banner.jpg')";
+        heroBg.style.backgroundSize = "cover";
+        heroBg.style.backgroundPosition = "center";
+        heroTitle.innerText = "Our Collection";
+        heroDesc.innerText = "Discover premium trends and upgrade your wardrobe with IsuliCloths";
+
+        // Set Active states
+        document.getElementById('nav-all').classList.add('active-nav');
+        document.getElementById('btn-all').classList.add('active-filter');
+    }
+}
+</script>
 
 </body>
 </html>
