@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" href="./image/icon.png">
+<title>IsuliCloths | Women's Collection</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+/* ===== GLOBAL ===== */
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Poppins;
+}
+
+body{
+background:#f4f6f8;
+}
+
+/* ===== NAVBAR ===== */
+header{
+background:#0f172a;
+position:sticky;
+top:0;
+z-index:1000;
+box-shadow:0 5px 20px rgba(0,0,0,0.2);
+}
+
+.nav{
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:15px 8%;
+}
+
+/* LOGO */
+.logo{
+display:flex;
+align-items:center;
+gap:10px;
+}
+
+.logo img{
+width:42px;
+height:42px;
+border-radius:50%;
+background-color:white;
+}
+
+.logo h1{
+color:white;
+font-size:18px;
+}
+
+/* MENU */
+nav ul{
+display:flex;
+gap:20px;
+list-style:none;
+}
+
+nav a{
+color:white;
+text-decoration:none;
+font-size:14px;
+transition:0.3s;
+position:relative;
+}
+
+nav a:hover{
+color:#2563eb;
+}
+
+nav a::after{
+content:"";
+position:absolute;
+bottom:-5px;
+left:0;
+width:0%;
+height:2px;
+background:#2563eb;
+transition:0.3s;
+}
+
+nav a:hover::after{
+width:100%;
+}
+
+/* SEARCH */
+.search{
+display:flex;
+align-items:center;
+background:#1e293b;
+padding:6px 12px;
+border-radius:20px;
+}
+
+.search input{
+background:transparent;
+border:none;
+outline:none;
+color:white;
+width:120px;
+}
+
+.search input::placeholder{
+color:#cbd5e1;
+}
+
+/* ICONS */
+.icons{
+display:flex;
+gap:15px;
+}
+
+.icon{
+position:relative;
+color:white;
+font-size:18px;
+transition:0.3s;
+}
+
+.icon:hover{
+color:#2563eb;
+transform:scale(1.1);
+}
+
+/* BADGE */
+.badges{
+position:absolute;
+top:-8px;
+right:-10px;
+background:red;
+color:white;
+font-size:10px;
+padding:2px 5px;
+border-radius:50%;
+}
+
+/* ===== HERO ===== */
+.women-hero{
+height:45vh;
+background:linear-gradient(to right, rgba(15,23,42,0.85), rgba(37,99,235,0.5)),
+url("image/women-hero-banner.jpg"); /* කාන්තා එකතුවට ගැළපෙන Banner එකක් */
+background-size:cover;
+background-position: center;
+display:flex;
+align-items:center;
+justify-content:center;
+color:white;
+text-align:center;
+}
+
+.women-hero h1{
+font-size:45px;
+letter-spacing: 2px;
+}
+
+.women-hero p{
+color:#cbd5e1;
+font-size: 16px;
+margin-top: 5px;
+}
+
+/* ===== CATEGORY SECTION ===== */
+.section-title {
+text-align: center;
+margin: 50px 0 20px;
+font-size: 28px;
+color: #0f172a;
+position: relative;
+text-transform: uppercase;
+}
+
+.section-title::after {
+content: '';
+display: block;
+width: 60px;
+height: 3px;
+background: #2563eb;
+margin: 10px auto 0;
+}
+
+/* ===== PRODUCTS ===== */
+.products{
+padding:20px 8% 40px;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:25px;
+}
+
+/* CARD */
+.card{
+background:white;
+border-radius:12px;
+overflow:hidden;
+box-shadow:0 10px 25px rgba(0,0,0,0.08);
+transition:0.4s;
+position:relative;
+}
+
+.card:hover{
+transform:translateY(-10px);
+}
+
+/* IMAGE */
+.card img{
+width:100%;
+height:320px;
+object-fit:cover;
+transition:0.4s;
+}
+
+.card:hover img{
+transform:scale(1.05);
+}
+
+/* BADGE */
+.badge{
+position:absolute;
+top:10px;
+left:10px;
+background:#2563eb;
+color:white;
+font-size:12px;
+padding:4px 10px;
+border-radius:5px;
+z-index: 10;
+}
+
+.badge.sale {
+background: #ef4444;
+}
+
+/* ICON BAR */
+.icon-bar{
+position:absolute;
+top:10px;
+right:10px;
+display:flex;
+flex-direction:column;
+gap:8px;
+opacity:0;
+transition:0.3s;
+z-index: 10;
+}
+
+.card:hover .icon-bar{
+opacity:1;
+}
+
+.icon-bar i{
+background:white;
+padding:8px;
+border-radius:50%;
+box-shadow:0 5px 10px rgba(0,0,0,0.1);
+cursor:pointer;
+transition:0.3s;
+color: #0f172a;
+}
+
+.icon-bar i:hover{
+background:#2563eb;
+color:white;
+}
+
+/* CONTENT */
+.card-content{
+padding:15px;
+text-align:center;
+}
+
+.card h3{
+margin:5px 0;
+font-size: 16px;
+color: #334155;
+}
+
+.price{
+color:#2563eb;
+font-weight:600;
+margin:5px 0;
+font-size: 16px;
+}
+
+.old-price {
+text-decoration: line-through;
+color: #94a3b8;
+font-size: 13px;
+margin-right: 5px;
+}
+
+/* BUTTON */
+.btn{
+background:#2563eb;
+color:white;
+border:none;
+padding:10px 18px;
+border-radius:6px;
+cursor:pointer;
+transition:0.3s;
+width: 100%;
+margin-top: 10px;
+font-weight: 500;
+}
+
+.btn:hover{
+background:#1d4ed8;
+}
+
+/* ===== PROMO BANNER ===== */
+.promo-banner {
+background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+color: white;
+margin: 40px 8%;
+padding: 50px;
+border-radius: 16px;
+display: flex;
+align-items: center;
+justify-content: space-between;
+flex-wrap: wrap;
+gap: 20px;
+box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+}
+
+.promo-text h2 {
+font-size: 32px;
+margin-bottom: 10px;
+}
+
+.promo-text p {
+color: #cbd5e1;
+}
+
+.promo-btn {
+background: #2563eb;
+color: white;
+text-decoration: none;
+padding: 12px 30px;
+border-radius: 8px;
+font-weight: 600;
+transition: 0.3s;
+}
+
+.promo-btn:hover {
+background: white;
+color: #2563eb;
+transform: scale(1.05);
+}
+
+/* ===== FOOTER ===== */
+footer{
+background:#0f172a;
+color:white;
+margin-top:60px;
+}
+
+.logos img {
+width: 70px;
+height: 70px;
+border-radius: 50%;
+background-color: white;
+margin-left: 20px;
+margin-bottom: 10px;
+}
+
+.footer-container{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:30px;
+padding:60px 8%;
+}
+
+.footer-box p,
+.footer-box a{
+color:#94a3b8;
+font-size:14px;
+text-decoration:none;
+display:block;
+margin-bottom:8px;
+}
+
+.footer-box a:hover{
+color:#2563eb;
+padding-left:5px;
+}
+
+.social i{
+font-size:18px;
+margin-right:10px;
+cursor:pointer;
+transition:0.3s;
+}
+
+.social i:hover{
+color:#2563eb;
+transform:scale(1.2);
+}
+
+.payment img{
+width:45px;
+margin-right:8px;
+background:white;
+padding:3px;
+border-radius:5px;
+}
+
+.subscribe{
+display:flex;
+margin-top:10px;
+}
+
+.subscribe input{
+flex:1;
+padding:10px;
+border:none;
+outline:none;
+}
+
+.subscribe button{
+background:#2563eb;
+color:white;
+border:none;
+padding:10px 15px;
+cursor:pointer;
+}
+
+.bottom{
+text-align:center;
+padding:15px;
+border-top:1px solid #1e293b;
+color:#94a3b8;
+font-size:13px;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<header>
+<div class="nav">
+
+    <div class="logo">
+        <img src="image/icon.png">
+        <h1>IsuliCloths</h1>
+    </div>
+
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="shop.html">Shop</a></li>
+            <li><a href="men.html">Men</a></li>
+            <li><a href="women.html">Women</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
+
+    <div class="search">
+        <input type="text" placeholder="Search">
+    </div>
+
+    <div class="icons">
+
+        <a class="icon" href="#"><i class="fas fa-user"></i></a>
+
+        <a class="icon" href="#">
+            <i class="fas fa-heart"></i>
+            <span class="badges">2</span>
+        </a>
+
+        <a class="icon" href="#">
+            <i class="fas fa-cart-shopping"></i>
+            <span class="badges">3</span>
+        </a>
+
+    </div>
+
+</div>
+</header>
+
+<!-- HERO -->
+<div class="women-hero">
+<div>
+<h1>Women's Collection</h1>
+<p>Discover the latest trends in women's premium fashion</p>
+</div>
+</div>
+
+
+<!-- SECTION 1: CLOTHING -->
+<h2 class="section-title">Women's Clothing</h2>
+
+<div class="products">
+
+    <!-- Item 1 -->
+    <div class="card">
+        <span class="badge">NEW</span>
+        <div class="icon-bar">
+            <i class="fas fa-heart"></i>
+            <i class="fas fa-eye"></i>
+            <i class="fas fa-cart-shopping"></i>
+        </div>
+        <img src="image/women-dress.jpg">
+        <div class="card-content">
+            <h3>Elegant Floral Dress</h3>
+            <p class="price">Rs 5,800</p>
+            <button class="btn">Add to Cart</button>
+        </div>
+    </div>
+
+    <!-- Item 2 -->
+    <div class="card">
+        <span class="badge sale">SALE</span>
+        <div class="icon-bar">
+            <i class="fas fa-heart"></i>
+            <i class="fas fa-eye"></i>
+            <i class="fas fa-cart-shopping"></i>
+        </div>
+        <img src="image/women-top.jpg">
+        <div class="card-content">
+            <h3>Casual Linen Top</h3>
+            <p class="price"><span class="old-price">Rs 3,200</span>Rs 2,500</p>
+            <button class="btn">Add to Cart</button>
+        </div>
+    </div>
+
+    <!-- Item 3 -->
+    <div class="card">
+        <div class="icon-bar">
+            <i class="fas fa-heart"></i>
+            <i class="fas fa-eye"></i>
+            <i class="fas fa-cart-shopping"></i>
+        </div>
+        <img src="image/women-frock.jpg">
+        <div class="card-content">
+            <h3>Modern Summer Frock</h3>
+            <p class="price">Rs 4,200</p>
+            <button class="btn">Add to Cart</button>
+        </div>
+    </div>
+
+    <!-- Item 4 -->
+    <div class="card">
+        <div class="icon-bar">
+            <i class="fas fa-heart"></i>
+            <i class="fas fa-eye"></i>
+            <i class="fas fa-cart-shopping"></i>
+        </div>
+        <img src="image/women-jeans.jpg">
+        <div class="card-content">
+            <h3>High Waist Denim Jeans</h3>
+            <p class="price">Rs 4,900</p>
+            <button class="btn">Add to Cart</button>
+        </div>
+    </div>
+
+</div>
+
+
+<!-- PROMO BANNER -->
+<div class="promo-banner">
+    <div class="promo-text">
+        <h2>Exclusive Ladies Offer!</h2>
+        <p>Get an extra 15% off on your first order from the Women's Accessories collection.</p>
+    </div>
+    <a href="#" class="promo-btn">Claim Offer</a>
+</div>
+
+
+<!-- SECTION 2: FOOTWEAR -->
+<h2 class="section-title">Women's Footwear</h2>
+
+<div class="products">
+
+    <!-- Item 5 -->
+    <div class="card">
+        <div class="icon-bar">
+            <i class="fas fa-heart"></i>
+            <i class="fas fa-eye"></i>
+            <i class="fas fa-cart-shopping"></i>
+        </div>
+        <img src="image/women-heels.jpg">
+        <div class="card-content">
+            <h3>Classic High Heels</h3>
+            <p class="price">Rs 6,500</p>
+            <button class="btn">Add to Cart</button>
+        </div>
+    </div>
+
+    <!-- Item 6 -->
+    <div class="card">
+        <span class="badge">TRENDING</span>
+        <div class="icon-bar">
+            <i class="fas fa-heart"></i>
+            <i class="fas fa-eye"></i>
+            <i class="fas fa-cart-shopping"></i>
+        </div>
+        <img src="image/women-sneakers.jpg">
+        <div class="card-content">
+            <h3>Casual White Sneakers</h3>
+            <p class="price">Rs 4,800</p>
+            <button class="btn">Add to Cart</button>
+        </div>
+    </div>
+
+    <!-- Item 7 -->
+    <div class="card">
+        <div class="icon-bar">
+            <i class="fas fa-heart"></i>
+            <i class="fas fa-eye"></i>
+            <i class="fas fa-cart-shopping"></i>
+        </div>
+        <img src="image/women-flats.jpg">
+        <div class="card-content">
+            <h3>Comfortable Flat Sandals</h3>
+            <p class="price">Rs 2,900</p>
+            <button class="btn">Add to Cart</button>
+        </div>
+    </div>
+
+    <!-- Item 8 -->
+    <div class="card">
+        <div class="icon-bar">
+            <i class="fas fa-heart"></i>
+            <i class="fas fa-eye"></i>
+            <i class="fas fa-cart-shopping"></i>
+        </div>
+        <img src="image/women-boots.jpg">
+        <div class="card-content">
+            <h3>Ankle Leather Boots</h3>
+            <p class="price">Rs 7,900</p>
+            <button class="btn">Add to Cart</button>
+        </div>
+    </div>
+
+</div>
+
+
+<!-- SECTION 3: ACCESSORIES -->
+<h2 class="section-title">Bags & Accessories</h2>
+
+<div class="products">
+
+    <!-- Item 9 -->
+    <div class="card">
+        <span class="badge">HOT</span>
+        <div class="icon-bar">
+            <i class="fas fa-heart"></i>
+            <i class="fas fa-eye"></i>
+            <i class="fas fa-cart-shopping"></i>
+        </div>
+        <img src="image/women-handbag.jpg">
+        <div class="card-content">
+            <h3>Luxury Leather Handbag</h3>
+            <p class="price">Rs 8,500</p>
+            <button class="btn">Add to Cart</button>
+        </div>
+    </div>
+
+    <!-- Item 10 -->
+    <div class="card">
+        <div class="icon-bar">
+            <i class="fas fa-heart"></i>
+            <i class="fas fa-eye"></i>
+            <i class="fas fa-cart-shopping"></i>
+        </div>
+        <img src="image/women-sunglasses.jpg">
+        <div class="card-content">
+            <h3>Oversized Sunglasses</h3>
+            <p class="price">Rs 3,100</p>
+            <button class="btn">Add to Cart</button>
+        </div>
+    </div>
+
+    <!-- Item 11 -->
+    <div class="card">
+        <div class="icon-bar">
+            <i class="fas fa-heart"></i>
+            <i class="fas fa-eye"></i>
+            <i class="fas fa-cart-shopping"></i>
+        </div>
+        <img src="image/women-watch.jpg">
+        <div class="card-content">
+            <h3>Rose Gold Women's Watch</h3>
+            <p class="price">Rs 9,800</p>
+            <button class="btn">Add to Cart</button>
+        </div>
+    </div>
+
+    <!-- Item 12 -->
+    <div class="card">
+        <span class="badge sale">SALE</span>
+        <div class="icon-bar">
+            <i class="fas fa-heart"></i>
+            <i class="fas fa-eye"></i>
+            <i class="fas fa-cart-shopping"></i>
+        </div>
+        <img src="image/women-jewellery.jpg">
+        <div class="card-content">
+            <h3>Minimalist Jewelry Set</h3>
+            <p class="price"><span class="old-price">Rs 3,500</span>Rs 2,800</p>
+            <button class="btn">Add to Cart</button>
+        </div>
+    </div>
+
+</div>
+
+
+<!-- FOOTER -->
+<footer>
+
+<div class="footer-container">
+
+    <div class="footer-box">
+        <div class="logos">
+            <img src="image/icon.png">
+        </div>
+        <h3>IsuliCloths</h3>
+        <p>Premium fashion store in Sri Lanka</p>
+
+        <div class="social">
+            <i class="fab fa-facebook"></i>
+            <i class="fab fa-instagram"></i>
+            <i class="fab fa-tiktok"></i>
+        </div>
+    </div>
+
+    <div class="footer-box">
+        <h3>Quick Links</h3>
+        <a href="./index.html">Home</a>
+        <a href="./shop.html">Shop</a>
+        <a href="./contact.html">Contact</a>
+        <a href="./about.html">About Us</a>
+    </div>
+
+    <div class="footer-box">
+        <h3>Contact</h3>
+        <p>info@isulicloths.com</p>
+        <p>+94 71 234 5678</p>
+
+        <div class="payment">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/4/41/Visa_Logo.png">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/0/04/Mastercard-logo.png">
+        </div>
+    </div>
+
+    <div class="footer-box">
+        <h3>Newsletter</h3>
+        <div class="subscribe">
+            <input type="email" placeholder="Email">
+            <button>Go</button>
+        </div>
+    </div>
+
+</div>
+
+<div class="bottom">
+    © 2026 IsuliCloths | All Rights Reserved
+</div>
+
+</footer>
+
+</body>
+</html>
