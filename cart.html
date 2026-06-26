@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="./image/icon.png">
+    <title>IsuliCloths | Shopping Cart</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* ===== GLOBAL ===== */
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:Poppins, sans-serif;
+        }
+
+        body{
+            background:#f4f6f8;
+            color: #1e293b;
+        }
+
+        /* ===== NAVBAR ===== */
+        header{
+            background:#0f172a;
+            position:sticky;
+            top:0;
+            z-index:1000;
+            box-shadow:0 5px 20px rgba(0,0,0,0.2);
+        }
+
+        .nav{
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            padding:15px 8%;
+        }
+
+        /* LOGO */
+        .logo{
+            display:flex;
+            align-items:center;
+            gap:10px;
+        }
+
+        .logo img{
+            width:42px;
+            height:42px;
+            border-radius:50%;
+            background-color:white;
+        }
+
+        .logo h1{
+            color:white;
+            font-size:18px;
+        }
+
+        /* MENU */
+        nav ul{
+            display:flex;
+            gap:20px;
+            list-style:none;
+        }
+
+        nav a{
+            color:white;
+            text-decoration:none;
+            font-size:14px;
+            transition:0.3s;
+            position:relative;
+            cursor: pointer;
+        }
+
+        nav a:hover, nav a.active-nav{
+            color:#2563eb;
+        }
+
+        nav a::after{
+            content:"";
+            position:absolute;
+            bottom:-5px;
+            left:0;
+            width:0%;
+            height:2px;
+            background:#2563eb;
+            transition:0.3s;
+        }
+
+        nav a:hover::after, nav a.active-nav::after{
+            width:100%;
+        }
+
+        /* SEARCH */
+        .search{
+            display:flex;
+            align-items:center;
+            background:#1e293b;
+            padding:6px 12px;
+            border-radius:20px;
+        }
+
+        .search input{
+            background:transparent;
+            border:none;
+            outline:none;
+            color:white;
+            width:120px;
+        }
+
+        .search input::placeholder{
+            color:#cbd5e1;
+        }
+
+        /* ICONS */
+        .icons{
+            display:flex;
+            gap:15px;
+        }
+
+        .icon{
+            position:relative;
+            color:white;
+            font-size:18px;
+            transition:0.3s;
+        }
+
+        .icon:hover{
+            color:#2563eb;
+            transform:scale(1.1);
+        }
+
+        /* BADGE */
+        .badges{
+            position:absolute;
+            top:-8px;
+            right:-10px;
+            background:red;
+            color:white;
+            font-size:10px;
+            padding:2px 5px;
+            border-radius:50%;
+        }
+
+        /* ===== CART CONTAINER ===== */
+        .cart-section {
+            padding: 50px 8%;
+        }
+
+        .cart-title {
+            font-size: 28px;
+            margin-bottom: 30px;
+            color: #0f172a;
+            font-weight: 600;
+        }
+
+        .cart-container {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+            align-items: start;
+        }
+
+        /* ===== CART ITEMS LEFT ===== */
+        .cart-items-wrapper {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        .cart-header-row {
+            display: grid;
+            grid-template-columns: 3fr 1fr 1fr 1fr;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #e2e8f0;
+            font-weight: 600;
+            color: #64748b;
+            font-size: 14px;
+        }
+
+        .cart-item {
+            display: grid;
+            grid-template-columns: 3fr 1fr 1fr 1fr;
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .cart-item:last-child {
+            border-bottom: none;
+        }
+
+        /* Product Detail */
+        .product-detail {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .product-detail img {
+            width: 80px;
+            height: 95px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .product-info h4 {
+            font-size: 16px;
+            color: #0f172a;
+            margin-bottom: 4px;
+        }
+
+        .product-info p {
+            font-size: 13px;
+            color: #64748b;
+        }
+
+        /* Price & Subtotal */
+        .item-price, .item-subtotal {
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        .item-subtotal {
+            color: #2563eb;
+            font-weight: 600;
+        }
+
+        /* Quantity Selector */
+        .quantity-selector {
+            display: flex;
+            align-items: center;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            width: fit-content;
+            background: #f8fafc;
+        }
+
+        .quantity-selector button {
+            background: transparent;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            font-size: 14px;
+            color: #334155;
+            transition: 0.2s;
+        }
+
+        .quantity-selector button:hover {
+            color: #2563eb;
+        }
+
+        .quantity-selector input {
+            width: 35px;
+            text-align: center;
+            border: none;
+            background: transparent;
+            outline: none;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        /* Remove Button */
+        .remove-btn {
+            background: transparent;
+            border: none;
+            color: #94a3b8;
+            cursor: pointer;
+            font-size: 16px;
+            margin-left: 15px;
+            transition: 0.2s;
+        }
+
+        .remove-btn:hover {
+            color: #ef4444;
+        }
+
+        .action-cell {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        /* ===== CART SUMMARY RIGHT ===== */
+        .cart-summary {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        .summary-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 10px;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            font-size: 15px;
+        }
+
+        .summary-row.total {
+            font-size: 18px;
+            font-weight: 700;
+            color: #0f172a;
+            border-top: 1px solid #e2e8f0;
+            padding-top: 15px;
+            margin-top: 15px;
+        }
+
+        /* Promo Code */
+        .promo-code-box {
+            margin: 20px 0;
+        }
+
+        .promo-code-box p {
+            font-size: 13px;
+            margin-bottom: 8px;
+            color: #64748b;
+        }
+
+        .promo-input {
+            display: flex;
+        }
+
+        .promo-input input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px 0 0 6px;
+            outline: none;
+            font-size: 14px;
+        }
+
+        .promo-input button {
+            background: #0f172a;
+            color: white;
+            border: none;
+            padding: 0 15px;
+            border-radius: 0 6px 6px 0;
+            cursor: pointer;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+
+        .promo-input button:hover {
+            background: #1e293b;
+        }
+
+        /* Checkout Button */
+        .checkout-btn {
+            background: #2563eb;
+            color: white;
+            border: none;
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: 0.3s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .checkout-btn:hover {
+            background: #1d4ed8;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+        }
+
+        .continue-shopping {
+            display: inline-block;
+            margin-top: 15px;
+            color: #2563eb;
+            text-decoration: none;
+            font-size: 14px;
+            transition: 0.2s;
+        }
+
+        .continue-shopping:hover {
+            text-decoration: underline;
+        }
+
+        /* ===== FOOTER ===== */
+        footer{
+            background:#0f172a;
+            color:white;
+            margin-top:60px;
+        }
+
+        .logos img {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background-color: white;
+            margin-left: 20px;
+            margin-bottom: 10px;
+        }
+
+        .footer-container{
+            display:grid;
+            grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+            gap:30px;
+            padding:60px 8%;
+        }
+
+        .footer-box p,
+        .footer-box a{
+            color:#94a3b8;
+            font-size:14px;
+            text-decoration:none;
+            display:block;
+            margin-bottom:8px;
+        }
+
+        .footer-box a:hover{
+            color:#2563eb;
+            padding-left:5px;
+        }
+
+        .social i{
+            font-size:18px;
+            margin-right:10px;
+            cursor:pointer;
+            transition:0.3s;
+        }
+
+        .social i:hover{
+            color:#2563eb;
+            transform:scale(1.2);
+        }
+
+        .payment img{
+            width:45px;
+            margin-right:8px;
+            background:white;
+            padding:3px;
+            border-radius:5px;
+        }
+
+        .subscribe{
+            display:flex;
+            margin-top:10px;
+        }
+
+        .subscribe input{
+            flex:1;
+            padding:10px;
+            border:none;
+            outline:none;
+        }
+
+        .subscribe button{
+            background:#2563eb;
+            color:white;
+            border:none;
+            padding:10px 15px;
+            cursor:pointer;
+        }
+
+        .bottom{
+            text-align:center;
+            padding:15px;
+            border-top:1px solid #1e293b;
+            color:#94a3b8;
+            font-size:13px;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 992px) {
+            .cart-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .cart-header-row {
+                display: none;
+            }
+            .cart-item {
+                grid-template-columns: 1fr;
+                gap: 15px;
+                text-align: center;
+            }
+            .product-detail {
+                flex-direction: column;
+            }
+            .quantity-selector {
+                margin: 0 auto;
+            }
+            .action-cell {
+                justify-content: center;
+                gap: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- NAVBAR (SAME AS SHOP.HTML) -->
+<header>
+    <div class="nav">
+        <div class="logo">
+            <img src="image/icon.png" alt="Logo">
+            <h1>IsuliCloths</h1>
+        </div>
+
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="shop.html">Shop</a></li>
+                <li><a href="shop.html">Men</a></li>
+                <li><a href="shop.html">Women</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+
+        <div class="search">
+            <input type="text" placeholder="Search">
+        </div>
+
+        <div class="icons">
+            <a class="icon" href="#"><i class="fas fa-user"></i></a>
+            <a class="icon" href="#"><i class="fas fa-heart"></i><span class="badges">2</span></a>
+            <a class="icon" href="cart.html" class="active-nav"><i class="fas fa-cart-shopping"></i><span class="badges">3</span></a>
+        </div>
+    </div>
+</header>
+
+<!-- CART SECTION -->
+<div class="cart-section">
+    <h1 class="cart-title"><i class="fas fa-cart-shopping"></i> Your Shopping Cart</h1>
+
+    <div class="cart-container">
+        
+        <!-- LEFT: CART ITEMS -->
+        <div class="cart-items-wrapper">
+            <div class="cart-header-row">
+                <div>Product Summary</div>
+                <div>Price</div>
+                <div>Quantity</div>
+                <div style="text-align: right; padding-right: 20px;">Total</div>
+            </div>
+
+            <!-- Item 1 -->
+            <div class="cart-item">
+                <div class="product-detail">
+                    <img src="https://tse1.mm.bing.net/th/id/OIP.3IpyJTwluIhYNW_kRYJ-qAHaHa?rs=1&pid=ImgDetMain&o=7&rm=3" alt="Product">
+                    <div class="product-info">
+                        <h4>Premium Casual Shirt</h4>
+                        <p>Size: M | Color: Blue</p>
+                    </div>
+                </div>
+                <div class="item-price">Rs 3,500</div>
+                <div>
+                    <div class="quantity-selector">
+                        <button onclick="changeQty(this, -1)">-</button>
+                        <input type="text" value="1" readonly>
+                        <button onclick="changeQty(this, 1)">+</button>
+                    </div>
+                </div>
+                <div class="action-cell">
+                    <div class="item-subtotal" style="width: 100%; text-align: right;">Rs 3,500</div>
+                    <button class="remove-btn"><i class="fas fa-trash-can"></i></button>
+                </div>
+            </div>
+
+            <!-- Item 2 -->
+            <div class="cart-item">
+                <div class="product-detail">
+                    <img src="image/women-dress.jpg" alt="Product">
+                    <div class="product-info">
+                        <h4>Elegant Floral Dress</h4>
+                        <p>Size: S | Color: Red</p>
+                    </div>
+                </div>
+                <div class="item-price">Rs 5,800</div>
+                <div>
+                    <div class="quantity-selector">
+                        <button onclick="changeQty(this, -1)">-</button>
+                        <input type="text" value="1" readonly>
+                        <button onclick="changeQty(this, 1)">+</button>
+                    </div>
+                </div>
+                <div class="action-cell">
+                    <div class="item-subtotal" style="width: 100%; text-align: right;">Rs 5,800</div>
+                    <button class="remove-btn"><i class="fas fa-trash-can"></i></button>
+                </div>
+            </div>
+
+            <!-- Item 3 -->
+            <div class="cart-item">
+                <div class="product-detail">
+                    <img src="https://tse4.mm.bing.net/th/id/OIP.pHXhkfgh-mHzCCZCrspPZAHaHa?rs=1&pid=ImgDetMain&o=7&rm=3" alt="Product">
+                    <div class="product-info">
+                        <h4>Luxury Men's Watch</h4>
+                        <p>Size: Free Size | Color: Gold</p>
+                    </div>
+                </div>
+                <div class="item-price">Rs 12,500</div>
+                <div>
+                    <div class="quantity-selector">
+                        <button onclick="changeQty(this, -1)">-</button>
+                        <input type="text" value="1" readonly>
+                        <button onclick="changeQty(this, 1)">+</button>
+                    </div>
+                </div>
+                <div class="action-cell">
+                    <div class="item-subtotal" style="width: 100%; text-align: right;">Rs 12,500</div>
+                    <button class="remove-btn"><i class="fas fa-trash-can"></i></button>
+                </div>
+            </div>
+        </div>
+
+        <!-- RIGHT: ORDER SUMMARY -->
+        <div class="cart-summary">
+            <h3 class="summary-title">Order Summary</h3>
+            
+            <div class="summary-row">
+                <span>Subtotal</span>
+                <span>Rs 21,800</span>
+            </div>
+            
+            <div class="summary-row">
+                <span>Estimated Shipping</span>
+                <span style="color: #22c55e;">Free</span>
+            </div>
+
+            <!-- Promo Code Box -->
+            <div class="promo-code-box">
+                <p>Have a promo code?</p>
+                <div class="promo-input">
+                    <input type="text" placeholder="Enter Code">
+                    <button>Apply</button>
+                </div>
+            </div>
+            
+            <div class="summary-row total">
+                <span>Total Amount</span>
+                <span>Rs 21,800</span>
+            </div>
+
+            <button class="checkout-btn">
+                Proceed to Checkout <i class="fas fa-arrow-right"></i>
+            </button>
+
+            <div style="text-align: center;">
+                <a href="shop.html" class="continue-shopping">
+                    <i class="fas fa-chevron-left"></i> Continue Shopping
+                </a>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- FOOTER (SAME AS SHOP.HTML) -->
+<footer>
+    <div class="footer-container">
+        <div class="footer-box">
+            <div class="logos"><img src="image/icon.png" alt="Logo"></div>
+            <h3>IsuliCloths</h3>
+            <p>Premium fashion store in Sri Lanka</p>
+            <div class="social">
+                <i class="fab fa-facebook"></i>
+                <i class="fab fa-instagram"></i>
+                <i class="fab fa-tiktok"></i>
+            </div>
+        </div>
+
+        <div class="footer-box">
+            <h3>Quick Links</h3>
+            <a href="./index.html">Home</a>
+            <a href="./shop.html">Shop</a>
+            <a href="./contact.html">Contact</a>
+            <a href="./about.html">About Us</a>
+        </div>
+
+        <div class="footer-box">
+            <h3>Contact</h3>
+            <p>info@isulicloths.com</p>
+            <p>+94 71 234 5678</p>
+            <div class="payment">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/4/41/Visa_Logo.png">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/0/04/Mastercard-logo.png">
+            </div>
+        </div>
+
+        <div class="footer-box">
+            <h3>Newsletter</h3>
+            <div class="subscribe">
+                <input type="email" placeholder="Email">
+                <button>Go</button>
+            </div>
+        </div>
+    </div>
+    <div class="bottom">
+        © 2026 IsuliCloths | All Rights Reserved
+    </div>
+</footer>
+
+<!-- JAVASCRIPT FOR QUANTITY UPDATES -->
+<script>
+function changeQty(button, direction) {
+    const input = button.parentElement.querySelector('input');
+    let currentVal = parseInt(input.value);
+    
+    currentVal += direction;
+    
+    if (currentVal < 1) {
+        currentVal = 1;
+    }
+    
+    input.value = currentVal;
+}
+</script>
+
+</body>
+</html>
